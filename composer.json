@@ -1,0 +1,44 @@
+{
+    "name": "aryehraber/statamic-captcha",
+    "type": "statamic-addon",
+    "description": "Protect your Statamic forms using a Captcha service",
+    "keywords": [
+        "statamic",
+        "recaptcha",
+        "hcaptcha",
+        "captcha",
+        "forms"
+    ],
+    "homepage": "https://github.com/aryehraber/statamic-captcha",
+    "license": "MIT",
+    "require": {
+        "statamic/cms": "3.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "AryehRaber\\Captcha\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aryeh Raber",
+            "email": "aryeh.raber@gmail.com",
+            "homepage": "https://aryeh.dev",
+            "role": "Developer"
+        }
+    ],
+    "extra": {
+        "statamic": {
+            "name": "Captcha",
+            "description": "Protect your Statamic forms using a Captcha service",
+            "version": "1.0.0"
+        },
+        "laravel": {
+            "providers": [
+                "AryehRaber\\Captcha\\CaptchaServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
