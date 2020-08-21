@@ -4,7 +4,7 @@
 
 This addon allows you to protect your Statamic forms from spam using [Google reCAPTCHA](https://www.google.com/recaptcha/intro/index.html) and [hCaptcha](https://hcaptcha.com/?r=eaeeea7cd23c).
 
-After the initial setup, all you need to do is add the `{{ captcha }}` tag inside your forms, easy peasy! See further details below...
+After the initial setup, all you need to do is add the `{{ captcha }}` tag inside your forms, easy peasy!
 
 ## Installation
 
