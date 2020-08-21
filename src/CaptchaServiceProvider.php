@@ -8,6 +8,8 @@ use AryehRaber\Captcha\Listeners\ValidateFormSubmission;
 
 class CaptchaServiceProvider extends AddonServiceProvider
 {
+    protected $viewNamespace = 'captcha';
+
     protected $tags = [
        CaptchaTags::class,
     ];
