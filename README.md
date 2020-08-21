@@ -14,10 +14,10 @@ Install the addon via composer:
 composer require aryehraber/statamic-captcha
 ```
 
-The `captcha` config file should automatically be published after installation, but if not you can (re)publish using:
+Publish the config file:
 
 ```
-php artisan vendor:publish --provider="AryehRaber\Captcha\CaptchaServiceProvider" --tag="config"
+ php please vendor:publish --tag=captcha-config
 ```
 
 Alternately, you can manually setup the config file by creating `captcha.php` inside your project's `config` directory:
