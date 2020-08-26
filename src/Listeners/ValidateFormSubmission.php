@@ -19,7 +19,7 @@ class ValidateFormSubmission
     public function handle(FormSubmitted $event)
     {
         /** @var Submission */
-        $submission = $event->form;
+        $submission = $event->submission;
 
         if (! in_array($submission->form()->handle(), config('captcha.forms', []))) {
             return $submission;
