@@ -49,4 +49,14 @@ class CaptchaTags extends Tags
 
         return Html::markdown($disclaimer);
     }
+
+    /**
+     * The {{ captcha:sitekey }} tag
+     *
+     * @return string
+     */
+    public function sitekey()
+    {
+        return $this->captcha->getSiteKey();
+    }
 }
