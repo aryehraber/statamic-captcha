@@ -32,7 +32,7 @@
             "name": "Captcha",
             "slug": "captcha",
             "description": "Protect your Statamic forms using a Captcha service",
-            "version": "1.0.3"
+            "version": "1.0.4"
         },
         "laravel": {
             "providers": [
