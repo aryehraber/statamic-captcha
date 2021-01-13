@@ -27,6 +27,12 @@ abstract class Captcha
 
     public function verify()
     {
+        if (request()->boolean('disable_captcha', false)) {
+            $this->data = collect(['success' => true]);
+
+            return $this;
+        }
+
         $query = [
             'secret' => $this->getSecret(),
             'response' => $this->getResponseToken(),
