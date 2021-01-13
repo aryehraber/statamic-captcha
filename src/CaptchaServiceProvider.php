@@ -2,9 +2,11 @@
 
 namespace AryehRaber\Captcha;
 
+use AryehRaber\Captcha\Listeners\ValidateEntry;
+use AryehRaber\Captcha\Listeners\ValidateFormSubmission;
+use Statamic\Events\EntrySaving;
 use Statamic\Events\FormSubmitted;
 use Statamic\Providers\AddonServiceProvider;
-use AryehRaber\Captcha\Listeners\ValidateFormSubmission;
 
 class CaptchaServiceProvider extends AddonServiceProvider
 {
@@ -15,9 +17,8 @@ class CaptchaServiceProvider extends AddonServiceProvider
     ];
 
     protected $listen = [
-        FormSubmitted::class => [
-            ValidateFormSubmission::class,
-        ],
+        FormSubmitted::class => [ValidateFormSubmission::class],
+        EntrySaving::class => [ValidateEntry::class],
     ];
 
     protected $routes = [
@@ -26,7 +27,7 @@ class CaptchaServiceProvider extends AddonServiceProvider
 
     public function register()
     {
-        $this->app->bind(Captcha::class, function() {
+        $this->app->bind(Captcha::class, function () {
             $service = config('captcha.service');
             $class = "AryehRaber\\Captcha\\{$service}";
 
