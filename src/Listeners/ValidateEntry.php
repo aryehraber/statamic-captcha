@@ -22,11 +22,7 @@ class ValidateEntry
         /** @var Entry */
         $entry = $event->entry;
 
-        if (Statamic::isCpRoute()) {
-            return $entry;
-        }
-
-        if (! in_array($entry->collectionHandle(), config('captcha.collections', []))) {
+        if (! $this->shouldVerify($entry)) {
             return $entry;
         }
 
@@ -35,5 +31,31 @@ class ValidateEntry
         }
 
         return $entry;
+    }
+
+    protected function shouldVerify(Entry $entry)
+    {
+        if (Statamic::isCpRoute()) {
+            return false;
+        }
+
+        if (! $config = $this->getCollectionConfig($entry->collectionHandle())) {
+            return false;
+        }
+
+        return ! empty(request()->except($config['skip_fields'] ?? []));
+    }
+
+    protected function getCollectionConfig(string $handle)
+    {
+        $configs = collect(config('captcha.collections', []))->mapWithKeys(function ($val, $key) {
+            return is_numeric($key) ? [$val => true] : [$key => $val];
+        });
+
+        if (! $config = $configs->get($handle)) {
+            return null;
+        }
+
+        return is_array($config) ? $config : $handle;
     }
 }
