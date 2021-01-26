@@ -43,7 +43,7 @@ class ValidateEntry
             return false;
         }
 
-        $skipFields = array_merge(['_token', 'g-recaptcha-response'], $config['skip_fields'] ?? []);
+        $skipFields = array_merge(['_token'], $config['skip_fields'] ?? []);
 
         return ! empty(request()->except($skipFields));
     }
