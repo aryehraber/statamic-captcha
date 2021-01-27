@@ -21,7 +21,7 @@ class ValidateFormSubmission
         /** @var Submission */
         $submission = $event->submission;
 
-        if (! in_array($submission->form()->handle(), config('captcha.forms', []))) {
+        if (! $this->shouldVerify($submission)) {
             return $submission;
         }
 
@@ -30,5 +30,10 @@ class ValidateFormSubmission
         }
 
         return $submission;
+    }
+
+    protected function shouldVerify(Submission $submission)
+    {
+        return in_array($submission->form()->handle(), config('captcha.forms', []));
     }
 }
