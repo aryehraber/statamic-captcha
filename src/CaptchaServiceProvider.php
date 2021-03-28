@@ -4,8 +4,10 @@ namespace AryehRaber\Captcha;
 
 use AryehRaber\Captcha\Listeners\ValidateEntry;
 use AryehRaber\Captcha\Listeners\ValidateFormSubmission;
+use AryehRaber\Captcha\Listeners\ValidateUserRegistration;
 use Statamic\Events\EntrySaving;
 use Statamic\Events\FormSubmitted;
+use Statamic\Events\UserRegistering;
 use Statamic\Providers\AddonServiceProvider;
 
 class CaptchaServiceProvider extends AddonServiceProvider
@@ -17,8 +19,9 @@ class CaptchaServiceProvider extends AddonServiceProvider
     ];
 
     protected $listen = [
-        FormSubmitted::class => [ValidateFormSubmission::class],
         EntrySaving::class => [ValidateEntry::class],
+        FormSubmitted::class => [ValidateFormSubmission::class],
+        UserRegistering::class => [ValidateUserRegistration::class],
     ];
 
     protected $routes = [
