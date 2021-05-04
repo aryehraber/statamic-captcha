@@ -84,6 +84,6 @@ Simply set `invisible` to `true` inside Captcha's config. To hide the sticky Rec
 
 Note: using Invisible Captcha will require you to display links to the Captcha service's Terms underneath the form, to make this easier use `{{ captcha:disclaimer }}`. This message can be customised using the `disclaimer` option inside Captcha's config, however sensible defaults have been added that will automatically switch depending on the Captcha service you're using.
 
-## User Registration
+## User Registration & Login
 
-Captcha can also verify [User Registration](https://statamic.dev/tags/user-register_form) form requests, simply set `user_registration` to `true` inside Captcha's config and use the `{{ captcha }}` tag as normal inside Statamic's `{{ user:register_form }}` tags.
+Captcha can also verify [User Registration](https://statamic.dev/tags/user-register_form) & [User Login](https://statamic.dev/tags/user-login_form) form requests, simply set `user_registration` / `user_login` to `true` inside Captcha's config and use the `{{ captcha }}` tag as normal inside Statamic's `{{ user:register_form }}` / `{{ user:login_form }}` tags.
