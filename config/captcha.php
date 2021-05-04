@@ -6,6 +6,7 @@ return [
     'secret' => env('CAPTCHA_SECRET', ''),
     'collections' => [],
     'forms' => [],
+    'user_login' => false,
     'user_registration' => false,
     'error_message' => 'Captcha failed.',
     'disclaimer' => '',
