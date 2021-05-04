@@ -3,9 +3,9 @@
 namespace AryehRaber\Captcha\Listeners;
 
 use AryehRaber\Captcha\Captcha;
-use Statamic\Forms\Submission;
-use Statamic\Events\FormSubmitted;
 use Illuminate\Validation\ValidationException;
+use Statamic\Events\FormSubmitted;
+use Statamic\Forms\Submission;
 
 class ValidateFormSubmission
 {
