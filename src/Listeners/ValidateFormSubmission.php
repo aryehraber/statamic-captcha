@@ -22,14 +22,14 @@ class ValidateFormSubmission
         $submission = $event->submission;
 
         if (! $this->shouldVerify($submission)) {
-            return $submission;
+            return null;
         }
 
         if ($this->captcha->verify()->invalidResponse()) {
             throw ValidationException::withMessages(['captcha' => config('captcha.error_message')]);
         }
 
-        return $submission;
+        return null;
     }
 
     protected function shouldVerify(Submission $submission)

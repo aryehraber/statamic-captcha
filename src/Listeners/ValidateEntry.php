@@ -23,14 +23,14 @@ class ValidateEntry
         $entry = $event->entry;
 
         if (! $this->shouldVerify($entry)) {
-            return $entry;
+            return null;
         }
 
         if ($this->captcha->verify()->invalidResponse()) {
             throw ValidationException::withMessages(['captcha' => config('captcha.error_message')]);
         }
 
-        return $entry;
+        return null;
     }
 
     protected function shouldVerify(Entry $entry)
