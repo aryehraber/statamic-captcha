@@ -20,14 +20,14 @@ class ValidateUserRegistration
         $user = $event->user;
 
         if (! $this->shouldVerify()) {
-            return $user;
+            return null;
         }
 
         if ($this->captcha->verify()->invalidResponse()) {
             throw ValidationException::withMessages(['captcha' => config('captcha.error_message')]);
         }
 
-        return $user;
+        return null;
     }
 
     protected function shouldVerify()
