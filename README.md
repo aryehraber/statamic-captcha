@@ -87,3 +87,18 @@ Note: using Invisible Captcha will require you to display links to the Captcha s
 ## User Registration & Login
 
 Captcha can also verify [User Registration](https://statamic.dev/tags/user-register_form) & [User Login](https://statamic.dev/tags/user-login_form) form requests, simply set `user_registration` / `user_login` to `true` inside Captcha's config and use the `{{ captcha }}` tag as normal inside Statamic's `{{ user:register_form }}` / `{{ user:login_form }}` tags.
+
+## Translations
+
+This package is localized to English and German.
+If you need translations in another language, you can create them yourself:
+
+* Create the translations file in `resources/lang/vendor/statamic-captcha/{language}/messages.php`.
+* You can use the [English translation file](https://github.com/aryehraber/statamic-captcha/blob/master/resources/lang/en/messages.php) as a blueprint.
+* You are welcome to share your translations here by [submitting a PR](https://github.com/aryehraber/statamic-captcha/pulls).
+
+If you want to change existing messages, you can publish and override them:
+
+```
+php please vendor:publish --tag="captcha-translations"
+```
