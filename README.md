@@ -32,7 +32,6 @@ return [
     'forms' => [],
     'user_login' => false,
     'user_registration' => false,
-    'error_message' => 'Captcha failed.',
     'disclaimer' => '',
     'invisible' => false,
     'hide_badge' => false,
