@@ -77,7 +77,7 @@ abstract class Captcha
     public function throwIfInvalid()
     {
         if ($this->invalidResponse()) {
-            throw ValidationException::withMessages(['captcha' => config('captcha.error_message')]);
+            throw ValidationException::withMessages(['captcha' => __('statamic-captcha::messages.validation_error')]);
         }
     }
 
