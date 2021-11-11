@@ -49,6 +49,6 @@ class CaptchaServiceProvider extends AddonServiceProvider
 
         $this->publishes([
             __DIR__.'/../resources/lang' => resource_path('lang/vendor/statamic-captcha'),
-        ], 'statamic-captcha-translations');
+        ], 'captcha-translations');
     }
 }
