@@ -2,6 +2,7 @@
 
 namespace AryehRaber\Captcha;
 
+use Illuminate\Validation\ValidationException;
 use GuzzleHttp\Client;
 
 abstract class Captcha
@@ -68,6 +69,16 @@ abstract class Captcha
     public function invalidResponse()
     {
         return ! $this->validResponse();
+    }
+
+    /**
+     * @throws ValidationException if the validation failed.
+     */
+    public function throwIfInvalid()
+    {
+        if ($this->invalidResponse()) {
+            throw ValidationException::withMessages(['captcha' => config('captcha.error_message')]);
+        }
     }
 
     /**

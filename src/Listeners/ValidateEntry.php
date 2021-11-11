@@ -3,7 +3,6 @@
 namespace AryehRaber\Captcha\Listeners;
 
 use AryehRaber\Captcha\Captcha;
-use Illuminate\Validation\ValidationException;
 use Statamic\Entries\Entry;
 use Statamic\Events\EntrySaving;
 use Statamic\Statamic;
@@ -26,9 +25,7 @@ class ValidateEntry
             return null;
         }
 
-        if ($this->captcha->verify()->invalidResponse()) {
-            throw ValidationException::withMessages(['captcha' => config('captcha.error_message')]);
-        }
+        $this->captcha->verify()->throwIfInvalid();
 
         return null;
     }

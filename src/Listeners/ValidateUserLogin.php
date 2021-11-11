@@ -4,7 +4,6 @@ namespace AryehRaber\Captcha\Listeners;
 
 use AryehRaber\Captcha\Captcha;
 use Illuminate\Auth\Events\Login;
-use Illuminate\Validation\ValidationException;
 
 class ValidateUserLogin
 {
@@ -23,9 +22,7 @@ class ValidateUserLogin
             return null;
         }
 
-        if ($this->captcha->verify()->invalidResponse()) {
-            throw ValidationException::withMessages(['captcha' => config('captcha.error_message')]);
-        }
+        $this->captcha->verify()->throwIfInvalid();
 
         return null;
     }
