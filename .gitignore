@@ -4,3 +4,6 @@ package.json
 mix-manifest.json
 webpack.mix.js
 yarn.lock
+
+# Editors
+.idea
