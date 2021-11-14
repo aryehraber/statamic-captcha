@@ -77,7 +77,7 @@ abstract class Captcha
     public function throwIfInvalid()
     {
         if ($this->invalidResponse()) {
-            $message = __('statamic-captcha::messages.validation_error');
+            $message = __('captcha::messages.validation_error');
 
             // Fallback for the old way of customizing the error message before github.com/aryehraber/statamic-captcha/pull/30
             $legacyMessage = config('captcha.error_message');
