@@ -28,7 +28,7 @@ class CaptchaServiceProvider extends AddonServiceProvider
     {
         parent::boot();
 
-        $this->handleTranslations();
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'captcha');
     }
 
     public function register()
@@ -41,14 +41,5 @@ class CaptchaServiceProvider extends AddonServiceProvider
 
             return new $class;
         });
-    }
-
-    protected function handleTranslations()
-    {
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'statamic-captcha');
-
-        $this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/statamic-captcha'),
-        ], 'captcha-translations');
     }
 }
