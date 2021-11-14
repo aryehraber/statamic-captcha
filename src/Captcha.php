@@ -2,8 +2,8 @@
 
 namespace AryehRaber\Captcha;
 
-use Illuminate\Validation\ValidationException;
 use GuzzleHttp\Client;
+use Illuminate\Validation\ValidationException;
 
 abstract class Captcha
 {
@@ -81,7 +81,7 @@ abstract class Captcha
 
             // Fallback for the old way of customizing the error message before github.com/aryehraber/statamic-captcha/pull/30
             $legacyMessage = config('captcha.error_message');
-            if (!is_null($legacyMessage) && $legacyMessage !== 'Captcha failed.') {
+            if (! is_null($legacyMessage) && $legacyMessage !== 'Captcha failed.') {
                 $message = $legacyMessage;
             }
 

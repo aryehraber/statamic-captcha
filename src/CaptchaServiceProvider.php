@@ -28,7 +28,7 @@ class CaptchaServiceProvider extends AddonServiceProvider
     {
         parent::boot();
 
-        $this->handleTranslations();
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'captcha');
     }
 
     public function register()
@@ -41,10 +41,5 @@ class CaptchaServiceProvider extends AddonServiceProvider
 
             return new $class;
         });
-    }
-
-    protected function handleTranslations()
-    {
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'captcha');
     }
 }
