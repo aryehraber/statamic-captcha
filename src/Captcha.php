@@ -2,6 +2,7 @@
 
 namespace AryehRaber\Captcha;
 
+use Illuminate\Validation\ValidationException;
 use GuzzleHttp\Client;
 
 abstract class Captcha
@@ -68,6 +69,24 @@ abstract class Captcha
     public function invalidResponse()
     {
         return ! $this->validResponse();
+    }
+
+    /**
+     * @throws ValidationException if the validation failed.
+     */
+    public function throwIfInvalid()
+    {
+        if ($this->invalidResponse()) {
+            $message = __('statamic-captcha::messages.validation_error');
+
+            // Fallback for the old way of customizing the error message before github.com/aryehraber/statamic-captcha/pull/30
+            $legacyMessage = config('captcha.error_message');
+            if (!is_null($legacyMessage) && $legacyMessage !== 'Captcha failed.') {
+                $message = $legacyMessage;
+            }
+
+            throw ValidationException::withMessages(['captcha' => $message]);
+        }
     }
 
     /**
