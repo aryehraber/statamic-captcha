@@ -2,6 +2,8 @@
 
 namespace AryehRaber\Captcha;
 
+use Illuminate\Support\Collection;
+
 class Hcaptcha extends Captcha
 {
     public function getResponseToken()
@@ -19,12 +21,12 @@ class Hcaptcha extends Captcha
         return 'This site is protected by hCaptcha and its <a href="https://hcaptcha.com/privacy">Privacy Policy</a> and <a href="https://hcaptcha.com/terms">Terms of Service</a> apply.';
     }
 
-    public function renderIndexTag()
+    public function renderIndexTag(Collection $params)
     {
-        $attributes = $this->buildAttributes([
+        $attributes = $this->buildAttributes($params->merge([
             'data-sitekey' => $this->getSiteKey(),
             'data-size' => config('captcha.invisible') ? 'invisible' : '',
-        ]);
+        ]));
 
         return "<div class=\"h-captcha\" {$attributes}></div>";
     }

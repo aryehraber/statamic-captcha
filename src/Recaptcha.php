@@ -2,6 +2,8 @@
 
 namespace AryehRaber\Captcha;
 
+use Illuminate\Support\Collection;
+
 class Recaptcha extends Captcha
 {
     public function getResponseToken()
@@ -19,12 +21,12 @@ class Recaptcha extends Captcha
         return 'This site is protected by reCAPTCHA and the Google [Privacy Policy](https://policies.google.com/privacy) and [Terms of Service](https://policies.google.com/terms) apply.';
     }
 
-    public function renderIndexTag()
+    public function renderIndexTag(Collection $params)
     {
-        $attributes = $this->buildAttributes([
+        $attributes = $this->buildAttributes($params->merge([
             'data-sitekey' => $this->getSiteKey(),
             'data-size' => config('captcha.invisible') ? 'invisible' : '',
-        ]);
+        ]));
 
         return "<div class=\"g-recaptcha\" {$attributes}></div>";
     }
