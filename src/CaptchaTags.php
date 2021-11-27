@@ -23,7 +23,7 @@ class CaptchaTags extends Tags
      */
     public function index()
     {
-        return $this->captcha->renderIndexTag();
+        return $this->captcha->renderIndexTag($this->params);
     }
 
     /**

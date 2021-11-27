@@ -3,6 +3,7 @@
 namespace AryehRaber\Captcha;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
 
 abstract class Captcha
@@ -22,7 +23,7 @@ abstract class Captcha
 
     abstract public function getDefaultDisclaimer();
 
-    abstract public function renderIndexTag();
+    abstract public function renderIndexTag(Collection $params);
 
     abstract public function renderHeadTag();
 
