@@ -4,6 +4,8 @@ package.json
 mix-manifest.json
 webpack.mix.js
 yarn.lock
+composer.lock
+/vendor
 
 # Editors
 .idea
