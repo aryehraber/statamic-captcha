@@ -31,6 +31,7 @@ class ValidateFormSubmission
 
     protected function shouldVerify(Submission $submission)
     {
-        return in_array($submission->form()->handle(), config('captcha.forms', []));
+        return config('captcha.forms') === 'all'
+            || in_array($submission->form()->handle(), config('captcha.forms', []));
     }
 }
