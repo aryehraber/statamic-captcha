@@ -53,6 +53,19 @@ return [
 ];
 ```
 
+If you would like Captcha to verify ALL forms without having to specify each one in the `forms` config array, you may use the `all` option instead.
+
+_Note: this should replace the array and be set as a string._
+
+```php
+<?php
+
+return [
+    'forms' => 'all',
+    // ...
+];
+```
+
 ## Usage
 
 ```html
