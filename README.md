@@ -2,7 +2,7 @@
 
 **Protect your Statamic forms using a Captcha service.**
 
-This addon allows you to protect your Statamic forms from spam using [Google reCAPTCHA v2](https://www.google.com/recaptcha/intro/index.html) (v3 is currently not supported) and [hCaptcha](https://hcaptcha.com/?r=eaeeea7cd23c).
+This addon allows you to protect your Statamic forms from spam using [Google reCAPTCHA v2](https://developers.google.com/recaptcha/intro) (v3 not supported), [hCaptcha](https://hcaptcha.com/?r=eaeeea7cd23c) or [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/).
 
 After the initial setup, all you need to do is add the `{{ captcha }}` tag inside your forms, easy peasy!
 
@@ -26,7 +26,7 @@ Alternately, you can manually setup the config file by creating `captcha.php` in
 <?php
 
 return [
-    'service' => 'Recaptcha', // options: Recaptcha / Hcaptcha
+    'service' => 'Recaptcha', // options: Recaptcha / Hcaptcha / Turnstile
     'sitekey' => env('CAPTCHA_SITEKEY', ''),
     'secret' => env('CAPTCHA_SECRET', ''),
     'forms' => [],
@@ -39,13 +39,13 @@ return [
 ];
 ```
 
-Once the config file is in place, make sure to add your `sitekey` & `secret` from [Recaptcha's Console](https://www.google.com/recaptcha/admin) or [hCaptcha's Console](https://dashboard.hcaptcha.com/sites) and add the handles of the Statamic Forms you'd like to protect:
+Once the config file is in place, make sure to add your `sitekey` & `secret` from [Recaptcha's Console](https://www.google.com/recaptcha/admin), [hCaptcha's Console](https://dashboard.hcaptcha.com/sites) or [Cloudflare's Dashboard](https://dash.cloudflare.com) and add the handles of the Statamic Forms you'd like to protect:
 
 ```php
 <?php
 
 return [
-    'service' => 'Recaptcha', // options: Recaptcha / Hcaptcha
+    'service' => 'Recaptcha', // options: Recaptcha / Hcaptcha / Turnstile
     'sitekey' => 'YOUR_SITEKEY_HERE', // Or add to .env
     'secret' => 'YOUR_SECRET_HERE', // Or add to .env
     'forms' => ['contact', 'newsletter'],
@@ -93,7 +93,7 @@ This will automatically render the Captcha element on the page. After the form i
 
 ## Invisible Captcha
 
-Simply set `invisible` to `true` inside Captcha's config. To hide the sticky Recaptcha badge, make sure to also set `hide_badge` to `true`.
+Simply set `invisible` to `true` inside Captcha's config (Turnstile handles invisibility from Cloudflares's Dashboard, so no Captcha config changes are needed). To hide the sticky Recaptcha badge, make sure to also set `hide_badge` to `true`.
 
 Note: using Invisible Captcha will require you to display links to the Captcha service's Terms underneath the form, to make this easier use `{{ captcha:disclaimer }}`. This message can be customised using the `disclaimer` option inside Captcha's config, however sensible defaults have been added that will automatically switch depending on the Captcha service you're using.
 
