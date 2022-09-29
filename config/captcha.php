@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'service' => 'Recaptcha', // options: Recaptcha / Hcaptcha
+    'service' => 'Recaptcha', // options: Recaptcha / Hcaptcha / Turnstile
     'sitekey' => env('CAPTCHA_SITEKEY', ''),
     'secret' => env('CAPTCHA_SECRET', ''),
     'collections' => [],
