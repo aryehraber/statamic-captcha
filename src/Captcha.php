@@ -29,13 +29,13 @@ abstract class Captcha
 
     public function verify()
     {
-        $query = [
+        $params = [
             'secret' => $this->getSecret(),
             'response' => $this->getResponseToken(),
             'remoteip' => request()->ip(),
         ];
 
-        $response = $this->client->post($this->getVerificationUrl(), compact('query'));
+        $response = $this->client->post($this->getVerificationUrl(), ['form_params' => $params]);
 
         if ($response->getStatusCode() == 200) {
             $this->data = collect(json_decode($response->getBody(), true));
