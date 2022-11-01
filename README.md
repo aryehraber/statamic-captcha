@@ -118,7 +118,7 @@ php please vendor:publish --tag="captcha-translations"
 
 ## Data Attributes
 
-Some of the Captcha services offer additional features, such as light/dark mode and sizing options, via data attributes. These can simply be added to the Captcha tag and will be passed through to the client-size widget.
+Some of the Captcha services offer additional features, such as light/dark mode and sizing options, via data attributes. These can simply be added to the Captcha tag and will be passed through to the client-side widget.
 
 ```
 {{ captcha data-theme="dark" data-size="compact" }}
