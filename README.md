@@ -115,3 +115,11 @@ If you want to change existing messages, you can publish and override them:
 ```
 php please vendor:publish --tag="captcha-translations"
 ```
+
+## Data Attribute
+
+Some of the Captcha services offer additional features, such as light/dark mode and sizing options, via data attributes. These can simply be added to the Captcha tag and will be passed through to the client-size widget.
+
+```
+{{ captcha data-theme="dark" data-size="compact" }}
+```
