@@ -101,6 +101,14 @@ Note: using Invisible Captcha will require you to display links to the Captcha s
 
 Captcha can also verify [User Registration](https://statamic.dev/tags/user-register_form) & [User Login](https://statamic.dev/tags/user-login_form) form requests, simply set `user_registration` / `user_login` to `true` inside Captcha's config and use the `{{ captcha }}` tag as normal inside Statamic's `{{ user:register_form }}` / `{{ user:login_form }}` tags.
 
+## Data Attributes
+
+Some of the Captcha services offer additional features, such as light/dark mode and sizing options, via data attributes. These can simply be added to the Captcha tag and will be passed through to the client-side widget.
+
+```
+{{ captcha data-theme="dark" data-size="compact" }}
+```
+
 ## Translations
 
 This package is localized to English and German.
@@ -114,12 +122,4 @@ If you want to change existing messages, you can publish and override them:
 
 ```
 php please vendor:publish --tag="captcha-translations"
-```
-
-## Data Attributes
-
-Some of the Captcha services offer additional features, such as light/dark mode and sizing options, via data attributes. These can simply be added to the Captcha tag and will be passed through to the client-side widget.
-
-```
-{{ captcha data-theme="dark" data-size="compact" }}
 ```
