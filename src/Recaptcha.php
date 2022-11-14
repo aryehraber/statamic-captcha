@@ -25,7 +25,7 @@ class Recaptcha extends Captcha
     {
         $attributes = $this->buildAttributes($params->merge([
             'data-sitekey' => $this->getSiteKey(),
-            'data-size' => config('captcha.invisible') ? 'invisible' : '',
+            'data-size' => config('captcha.invisible') ? 'invisible' : $params->get('data-size'),
         ]));
 
         return "<div class=\"g-recaptcha\" {$attributes}></div>";

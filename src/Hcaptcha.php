@@ -25,7 +25,7 @@ class Hcaptcha extends Captcha
     {
         $attributes = $this->buildAttributes($params->merge([
             'data-sitekey' => $this->getSiteKey(),
-            'data-size' => config('captcha.invisible') ? 'invisible' : '',
+            'data-size' => config('captcha.invisible') ? 'invisible' : $params->get('data-size'),
         ]));
 
         return "<div class=\"h-captcha\" {$attributes}></div>";
