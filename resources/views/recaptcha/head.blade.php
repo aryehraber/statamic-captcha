@@ -1,5 +1,5 @@
 @if ($hide_badge)
-  <style>.grecaptcha-badge { visibility: collapse !important }</style>
+<style>.grecaptcha-badge { visibility: collapse !important }</style>
 @endif
 
 @if ($invisible)

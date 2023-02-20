@@ -2,8 +2,8 @@
 
 namespace AryehRaber\Captcha;
 
-use Statamic\Tags\Tags;
 use Statamic\Support\Html;
+use Statamic\Tags\Tags;
 
 class CaptchaTags extends Tags
 {
