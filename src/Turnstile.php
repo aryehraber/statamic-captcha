@@ -6,6 +6,11 @@ use Illuminate\Support\Collection;
 
 class Turnstile extends Captcha
 {
+    public function getScriptUrl()
+    {
+        return 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    }
+
     public function getResponseToken()
     {
         return request('cf-turnstile-response');
@@ -32,6 +37,8 @@ class Turnstile extends Captcha
 
     public function renderHeadTag()
     {
-        return view('captcha::turnstile.head')->render();
+        return view('captcha::turnstile.head', [
+            'url' => $this->getScriptUrl(),
+        ])->render();
     }
 }

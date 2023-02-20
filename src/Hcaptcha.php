@@ -6,6 +6,11 @@ use Illuminate\Support\Collection;
 
 class Hcaptcha extends Captcha
 {
+    public function getScriptUrl()
+    {
+        return 'https://hcaptcha.com/1/api.js';
+    }
+
     public function getResponseToken()
     {
         return request('h-captcha-response');
@@ -34,6 +39,7 @@ class Hcaptcha extends Captcha
     public function renderHeadTag()
     {
         return view('captcha::hcaptcha.head', [
+            'url' => $this->getScriptUrl(),
             'invisible' => config('captcha.invisible'),
         ])->render();
     }

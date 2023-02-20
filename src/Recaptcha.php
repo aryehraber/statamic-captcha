@@ -6,6 +6,11 @@ use Illuminate\Support\Collection;
 
 class Recaptcha extends Captcha
 {
+    public function getScriptUrl()
+    {
+        return 'https://www.google.com/recaptcha/api.js';
+    }
+
     public function getResponseToken()
     {
         return request('g-recaptcha-response');
@@ -34,6 +39,7 @@ class Recaptcha extends Captcha
     public function renderHeadTag()
     {
         return view('captcha::recaptcha.head', [
+            'url' => $this->getScriptUrl(),
             'invisible' => config('captcha.invisible'),
             'hide_badge' => config('captcha.hide_badge'),
         ])->render();

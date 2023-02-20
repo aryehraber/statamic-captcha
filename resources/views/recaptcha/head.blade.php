@@ -4,7 +4,7 @@
 
 @if ($invisible)
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  function initCaptcha() {
     var captchas = Array.prototype.slice.call(document.querySelectorAll('.g-recaptcha[data-size=invisible]'), 0);
 
     captchas.forEach(function (captcha, index) {
@@ -23,8 +23,10 @@
         grecaptcha.execute(index);
       });
     });
-  });
+  }
+
+  document.addEventListener('DOMContentLoaded', initCaptcha);
 </script>
 @endif
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+@include('captcha::base-script', ['url' => $url])
