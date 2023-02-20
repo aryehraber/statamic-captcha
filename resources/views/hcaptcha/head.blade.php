@@ -1,6 +1,6 @@
 @if ($invisible)
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  function initCaptcha() {
     var captchas = Array.prototype.slice.call(document.querySelectorAll('.h-captcha[data-size=invisible]'), 0);
 
     captchas.forEach(function (captcha, index) {
@@ -20,8 +20,10 @@
         hcaptcha.execute(index);
       });
     });
-  });
+  }
+
+  document.addEventListener('DOMContentLoaded', initCaptcha);
 </script>
 @endif
 
-<script src="https://hcaptcha.com/1/api.js" async defer></script>
+@include('captcha::base-script', ['url' => $url])
