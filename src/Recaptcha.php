@@ -44,8 +44,8 @@ class Recaptcha extends Captcha
         $valid = parent::validResponse();
         $threshold = config('captcha.threshold');
         $score = $this->data->get('score');
-        if ($valid && $threshold !== null && $score !== null) {
-            $valid = ($score >= $threshold);
+        if ($valid && $threshold !== null && $score !== null && $score < $threshold) {
+            $valid = false;
         }
         return $valid;
     }
