@@ -24,13 +24,6 @@ class CaptchaServiceProvider extends AddonServiceProvider
         'web' => __DIR__.'/../routes/web.php',
     ];
 
-    public function boot()
-    {
-        parent::boot();
-
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'captcha');
-    }
-
     public function register()
     {
         $this->app->bind(Captcha::class, function () {
