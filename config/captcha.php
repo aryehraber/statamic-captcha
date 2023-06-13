@@ -12,4 +12,5 @@ return [
     'invisible' => false,
     'hide_badge' => false,
     'enable_api_routes' => false,
+    'threshold' => 0.5,
 ];
