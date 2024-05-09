@@ -38,4 +38,15 @@ class Recaptcha extends Captcha
             'hide_badge' => config('captcha.hide_badge'),
         ])->render();
     }
+
+    public function validResponse()
+    {
+        $valid = parent::validResponse();
+        $threshold = config('captcha.threshold');
+        $score = $this->data->get('score');
+        if ($valid && $threshold !== null && $score !== null && $score < $threshold) {
+            $valid = false;
+        }
+        return $valid;
+    }
 }
