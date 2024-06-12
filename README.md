@@ -36,6 +36,7 @@ return [
     'invisible' => false,
     'hide_badge' => false,
     'enable_api_routes' => false,
+    'advanced_should_verify' => null,
 ];
 ```
 
@@ -64,6 +65,39 @@ return [
     'forms' => 'all',
     // ...
 ];
+```
+
+You can also provide advanced logic to determine if verification should be attempted at a more advanced level. This is useful to adjust the addon's `shouldVerify` call to include app-specific behaviour - such as disabling verification based on the environment, if you want to have captcha disabled on dev, but enabled on prod, without adjusting config. 
+
+Create an invokable class within your app, and add it as the `advanced_should_verify` property in your config:
+
+```php
+<?php
+
+return [
+    // ...
+    'advanced_should_verify' => \App\Support\ShouldVerifyCaptcha::class,
+    // ...
+];
+```
+
+And within your invokable class, which accepts the `Statamic\Forms\Submission`:
+
+```php
+<?php
+
+namespace App\Support;
+
+use Statamic\Forms\Submission;
+
+class ShouldVerifyCaptcha {
+
+    public function __invoke(Submission $submission): bool {
+        // some logic about should verify based on site setup
+        // and return "true" or "false"
+        return true;
+    }
+}
 ```
 
 ## Usage
