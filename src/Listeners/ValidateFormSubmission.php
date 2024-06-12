@@ -33,12 +33,11 @@ class ValidateFormSubmission
     {
         $shouldVerify = config('captcha.forms') === 'all'
             || in_array($submission->form()->handle(), config('captcha.forms', []));
-ray($shouldVerify);
+
         if ($shouldVerify && config('captcha.advanced_should_verify', null)) {
             $shouldVerify = app()->make(config('captcha.advanced_should_verify'))($submission);
         }
-
-        ray('shouldVerify: '.$shouldVerify);
+        
         return $shouldVerify;
     }
 }
