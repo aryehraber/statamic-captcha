@@ -37,7 +37,7 @@ class ValidateFormSubmission
         if ($shouldVerify && config('captcha.advanced_should_verify', null)) {
             $shouldVerify = app()->make(config('captcha.advanced_should_verify'))($submission);
         }
-        
+
         return $shouldVerify;
     }
 }
