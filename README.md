@@ -36,7 +36,7 @@ return [
     'invisible' => false,
     'hide_badge' => false,
     'enable_api_routes' => false,
-    'advanced_should_verify' => null,
+    'custom_should_verify' => null,
 ];
 ```
 
@@ -65,39 +65,6 @@ return [
     'forms' => 'all',
     // ...
 ];
-```
-
-You can also provide advanced logic to determine if verification should be attempted at a more advanced level. This is useful to adjust the addon's `shouldVerify` call to include app-specific behaviour - such as disabling verification based on the environment, if you want to have captcha disabled on dev, but enabled on prod, without adjusting config. 
-
-Create an invokable class within your app, and add it as the `advanced_should_verify` property in your config:
-
-```php
-<?php
-
-return [
-    // ...
-    'advanced_should_verify' => \App\Support\ShouldVerifyCaptcha::class,
-    // ...
-];
-```
-
-And within your invokable class, which accepts the `Statamic\Forms\Submission`:
-
-```php
-<?php
-
-namespace App\Support;
-
-use Statamic\Forms\Submission;
-
-class ShouldVerifyCaptcha {
-
-    public function __invoke(Submission $submission): bool {
-        // some logic about should verify based on site setup
-        // and return "true" or "false"
-        return true;
-    }
-}
 ```
 
 ## Usage
@@ -156,4 +123,43 @@ If you want to change existing messages, you can publish and override them:
 
 ```
 php please vendor:publish --tag="captcha-translations"
+```
+
+## Advanced
+
+### Custom "Should Verify" Logic
+
+You can provide additional custom logic to determine if verification should be attempted using a custom invokable class. This is useful to adjust Captcha's `shouldVerify` check to include app-specific behaviour, for example: only enforcing Captcha for guest users and bypassing it for logged-in users.
+
+To get started, create an invokable class within your app, and add it as the `custom_should_verify` property in your config:
+
+```php
+<?php
+
+return [
+    // ...
+    'custom_should_verify' => \App\Support\MyCustomShouldVerify::class,
+];
+```
+
+This invokable class must implement the `\AryehRaber\Captcha\Contracts\CustomShouldVerify` interface, which enforces that an event param gets passed into the invoke method and subsequently returns an optional boolean. To stop Captcha's `shouldVerify` method from getting called, the invoke method must return `false`, otherwise returning `true` (or `null`) will continue Captcha's verification logic.
+
+Note: this custom class is resolved via Laravel's container, meaning dependency injection is available via the constructor.
+
+```php
+<?php
+
+namespace App\Support;
+
+use AryehRaber\Captcha\Contracts\CustomShouldVerify;
+
+class MyCustomShouldVerify implements CustomShouldVerify
+{
+    public function __invoke($event): ?bool
+    {
+        if ($event instanceof \Statamic\Events\FormSubmitted) {
+            return auth()->guest();
+        }
+    }
+}
 ```
