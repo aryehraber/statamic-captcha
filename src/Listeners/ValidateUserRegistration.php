@@ -2,32 +2,12 @@
 
 namespace AryehRaber\Captcha\Listeners;
 
-use AryehRaber\Captcha\Captcha;
 use Statamic\Events\UserRegistering;
 
-class ValidateUserRegistration
+class ValidateUserRegistration extends CaptchaListener
 {
-    protected $captcha;
-
-    public function __construct(Captcha $captcha)
-    {
-        $this->captcha = $captcha;
-    }
-
-    public function handle(UserRegistering $event)
-    {
-        $user = $event->user;
-
-        if (! $this->shouldVerify()) {
-            return null;
-        }
-
-        $this->captcha->verify()->throwIfInvalid();
-
-        return null;
-    }
-
-    protected function shouldVerify()
+    /** @param UserRegistering $event */
+    protected function shouldVerify($event): bool
     {
         return config('captcha.user_registration', false);
     }
