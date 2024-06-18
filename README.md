@@ -157,8 +157,34 @@ class MyCustomShouldVerify implements CustomShouldVerify
 {
     public function __invoke($event): ?bool
     {
-        if ($event instanceof \Statamic\Events\FormSubmitted) {
-            return auth()->guest();
+        // bypass verification for authenticated users
+        if (auth()->check()) {
+            return false;
+        }
+
+        // bypass verification on dev environment
+        if (app()->environment('dev')) {
+            return false;
+        }
+
+        // bypass verification based on event form submission 
+        if ($event instanceof FormSubmitted) {
+            // return $event->submission;
+        }
+
+        // bypass verification based on login event
+        if ($event instanceof Login) {
+            // return $event->user;
+        }
+
+        // bypass verification based on user registration event
+        if ($event instanceof UserRegistering) {
+            // return $event->user;
+        }
+
+        // bypass verification based on entry saving event
+        if ($event instanceof EntrySaving) {
+            // return $event->entry;
         }
     }
 }
