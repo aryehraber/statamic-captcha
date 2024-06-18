@@ -168,22 +168,22 @@ class MyCustomShouldVerify implements CustomShouldVerify
         }
 
         // bypass verification based on event form submission 
-        if ($event instanceof FormSubmitted) {
+        if ($event instanceof \Statamic\Events\FormSubmitted) {
             // return $event->submission;
         }
 
         // bypass verification based on login event
-        if ($event instanceof Login) {
+        if ($event instanceof \Illuminate\Auth\Events\Login) {
             // return $event->user;
         }
 
         // bypass verification based on user registration event
-        if ($event instanceof UserRegistering) {
+        if ($event instanceof \Statamic\Events\UserRegistering) {
             // return $event->user;
         }
 
         // bypass verification based on entry saving event
-        if ($event instanceof EntrySaving) {
+        if ($event instanceof \Statamic\Events\EntrySaving) {
             // return $event->entry;
         }
     }
