@@ -12,4 +12,5 @@ return [
     'invisible' => false,
     'hide_badge' => false,
     'enable_api_routes' => false,
+    'custom_should_verify' => null,
 ];
