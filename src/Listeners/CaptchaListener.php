@@ -36,7 +36,7 @@ abstract class CaptchaListener
     {
         $customClass = config('captcha.custom_should_verify');
 
-        if (! class_exists($customClass)) {
+        if (! $customClass || ! class_exists($customClass)) {
             return null;
         }
 
