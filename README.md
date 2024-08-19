@@ -36,6 +36,7 @@ return [
     'invisible' => false,
     'hide_badge' => false,
     'enable_api_routes' => false,
+    'custom_should_verify' => null,
 ];
 ```
 
@@ -122,4 +123,69 @@ If you want to change existing messages, you can publish and override them:
 
 ```
 php please vendor:publish --tag="captcha-translations"
+```
+
+## Advanced
+
+### Custom "Should Verify" Logic
+
+You can provide additional custom logic to determine if verification should be attempted using a custom invokable class. This is useful to adjust Captcha's `shouldVerify` check to include app-specific behaviour, for example: only enforcing Captcha for guest users and bypassing it for logged-in users.
+
+To get started, create an invokable class within your app, and add it as the `custom_should_verify` property in your config:
+
+```php
+<?php
+
+return [
+    // ...
+    'custom_should_verify' => \App\Support\MyCustomShouldVerify::class,
+];
+```
+
+This invokable class must implement the `\AryehRaber\Captcha\Contracts\CustomShouldVerify` interface, which enforces that an event param gets passed into the invoke method and subsequently returns an optional boolean. To stop Captcha's `shouldVerify` method from getting called, the invoke method must return `false`, otherwise returning `true` (or `null`) will continue Captcha's verification logic.
+
+Note: this custom class is resolved via Laravel's container, meaning dependency injection is available via the constructor.
+
+```php
+<?php
+
+namespace App\Support;
+
+use AryehRaber\Captcha\Contracts\CustomShouldVerify;
+
+class MyCustomShouldVerify implements CustomShouldVerify
+{
+    public function __invoke($event): ?bool
+    {
+        // bypass verification for authenticated users
+        if (auth()->check()) {
+            return false;
+        }
+
+        // bypass verification on dev environment
+        if (app()->environment('dev')) {
+            return false;
+        }
+
+        // bypass verification based on event form submission 
+        if ($event instanceof \Statamic\Events\FormSubmitted) {
+            // return $event->submission;
+        }
+
+        // bypass verification based on login event
+        if ($event instanceof \Illuminate\Auth\Events\Login) {
+            // return $event->user;
+        }
+
+        // bypass verification based on user registration event
+        if ($event instanceof \Statamic\Events\UserRegistering) {
+            // return $event->user;
+        }
+
+        // bypass verification based on entry saving event
+        if ($event instanceof \Statamic\Events\EntrySaving) {
+            // return $event->entry;
+        }
+    }
+}
 ```

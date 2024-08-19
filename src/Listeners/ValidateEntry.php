@@ -2,36 +2,18 @@
 
 namespace AryehRaber\Captcha\Listeners;
 
-use AryehRaber\Captcha\Captcha;
 use Statamic\Entries\Entry;
 use Statamic\Events\EntrySaving;
 use Statamic\Statamic;
 
-class ValidateEntry
+class ValidateEntry extends CaptchaListener
 {
-    protected $captcha;
-
-    public function __construct(Captcha $captcha)
-    {
-        $this->captcha = $captcha;
-    }
-
-    public function handle(EntrySaving $event)
+    /** @param EntrySaving $event */
+    protected function shouldVerify($event): bool
     {
         /** @var Entry */
         $entry = $event->entry;
 
-        if (! $this->shouldVerify($entry)) {
-            return null;
-        }
-
-        $this->captcha->verify()->throwIfInvalid();
-
-        return null;
-    }
-
-    protected function shouldVerify(Entry $entry)
-    {
         if (Statamic::isCpRoute()) {
             return false;
         }
