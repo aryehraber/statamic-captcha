@@ -6,7 +6,7 @@ This addon allows you to protect your Statamic forms using any of the following 
 - [Google reCAPTCHA v2](https://developers.google.com/recaptcha/intro) (v3 not supported)
 - [hCaptcha](https://hcaptcha.com/?r=eaeeea7cd23c)
 - [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile)
-- [Altcha](https://altcha.org)
+- [ALTCHA](https://altcha.org)
 
 After the initial setup, all you need to do is add the `{{ captcha }}` tag inside your forms, easy peasy!
 
