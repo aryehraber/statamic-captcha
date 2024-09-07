@@ -1,4 +1,4 @@
-<script async defer src="{{ $script }}" type="module"></script>
+<script src="https://cdn.jsdelivr.net/npm/altcha/dist/altcha.min.js" async defer type="module"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const wrapper = document.getElementById('altcha-widget')

@@ -8,7 +8,7 @@ class Altcha extends Captcha
 {
     public function getResponseToken()
     {
-        return request('altcha-payload', '');
+        return request('altcha-payload');
     }
 
     public function getVerificationUrl()
@@ -18,45 +18,26 @@ class Altcha extends Captcha
 
     public function getDefaultDisclaimer()
     {
-        return null;
+        return '[Protected by ALTCHA](https://altcha.org).';
     }
 
     public function renderIndexTag(Collection $params)
     {
         $attributes = $this->buildAttributes($params->merge([
             'challengejson' => htmlspecialchars(json_encode($this->createChallenge())),
-            'id' => 'altcha-widget',
         ]));
 
-        return "<div $attributes></div>";
+        return "<div id=\"altcha-widget\" {$attributes}></div>";
     }
 
     public function renderHeadTag()
     {
-        return view('captcha::altcha.head', [
-            'script' => config('captcha.sitekey') ?: 'https://cdn.jsdelivr.net/npm/altcha/dist/altcha.js',
-        ])->render();
+        return view('captcha::altcha.head')->render();
     }
 
     public function verify()
     {
         return $this;
-    }
-
-    public function createChallenge(string $salt = null, int $number = null): array
-    {
-        $salt = $salt ?? bin2hex(random_bytes(12));
-        $number = $number ?? random_int(1e3, 1e5);
-
-        $challenge = hash('sha256', $salt.$number);
-        $signature = hash_hmac('sha256', $challenge, config('captcha.secret'));
-
-        return [
-            'algorithm' => 'SHA-256',
-            'challenge' => $challenge,
-            'salt' => $salt,
-            'signature' => $signature,
-        ];
     }
 
     public function validResponse()
@@ -72,5 +53,21 @@ class Altcha extends Captcha
         }
 
         return false;
+    }
+
+    protected function createChallenge(string $salt = null, int $number = null): array
+    {
+        $salt = $salt ?? bin2hex(random_bytes(12));
+        $number = $number ?? random_int(1e3, 1e5);
+
+        $challenge = hash('sha256', $salt.$number);
+        $signature = hash_hmac('sha256', $challenge, config('captcha.secret'));
+
+        return [
+            'algorithm' => 'SHA-256',
+            'challenge' => $challenge,
+            'salt' => $salt,
+            'signature' => $signature,
+        ];
     }
 }
