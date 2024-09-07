@@ -37,22 +37,19 @@ class Altcha extends Captcha
 
     public function verify()
     {
-        return $this;
-    }
+        $payload = json_decode(base64_decode($this->getResponseToken()), true);
 
-    public function validResponse()
-    {
-        $json = json_decode(base64_decode($this->getResponseToken()), true);
+        if ($payload) {
+            $challenge = $this->createChallenge($payload['salt'], $payload['number']);
 
-        if ($json) {
-            $check = $this->createChallenge($json['salt'], $json['number']);
+            $result = $payload['algorithm'] === $challenge['algorithm']
+                    && $payload['challenge'] === $challenge['challenge']
+                    && $payload['signature'] === $challenge['signature'];
 
-            return $json['algorithm'] === $check['algorithm']
-                && $json['challenge'] === $check['challenge']
-                && $json['signature'] === $check['signature'];
+            $this->data = collect(['success' => $result]);
         }
 
-        return false;
+        return $this;
     }
 
     protected function createChallenge(string $salt = null, int $number = null): array
