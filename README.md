@@ -2,7 +2,11 @@
 
 **Protect your Statamic forms using a Captcha service.**
 
-This addon allows you to protect your Statamic forms from spam using [Google reCAPTCHA v2](https://developers.google.com/recaptcha/intro) (v3 not supported), [hCaptcha](https://hcaptcha.com/?r=eaeeea7cd23c) or [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/).
+This addon allows you to protect your Statamic forms using any of the following services:
+- [Google reCAPTCHA v2](https://developers.google.com/recaptcha/intro) (v3 not supported)
+- [hCaptcha](https://hcaptcha.com/?r=eaeeea7cd23c)
+- [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile)
+- [Altcha](https://altcha.org)
 
 After the initial setup, all you need to do is add the `{{ captcha }}` tag inside your forms, easy peasy!
 
@@ -26,7 +30,7 @@ Alternately, you can manually setup the config file by creating `captcha.php` in
 <?php
 
 return [
-    'service' => 'Recaptcha', // options: Recaptcha / Hcaptcha / Turnstile
+    'service' => 'Recaptcha', // options: Recaptcha / Hcaptcha / Turnstile / Altcha
     'sitekey' => env('CAPTCHA_SITEKEY', ''),
     'secret' => env('CAPTCHA_SECRET', ''),
     'forms' => [],
@@ -40,13 +44,13 @@ return [
 ];
 ```
 
-Once the config file is in place, make sure to add your `sitekey` & `secret` from [Recaptcha's Console](https://www.google.com/recaptcha/admin), [hCaptcha's Console](https://dashboard.hcaptcha.com/sites) or [Cloudflare's Dashboard](https://dash.cloudflare.com) and add the handles of the Statamic Forms you'd like to protect:
+Once the config file is in place, make sure to add your `sitekey` & `secret` from [Recaptcha's Console](https://www.google.com/recaptcha/admin), [hCaptcha's Console](https://dashboard.hcaptcha.com/sites), [Cloudflare's Dashboard](https://dash.cloudflare.com) or [Altcha's Docs](https://altcha.org/docs/api/api_keys/) and add the handles of the Statamic Forms you'd like to protect:
 
 ```php
 <?php
 
 return [
-    'service' => 'Recaptcha', // options: Recaptcha / Hcaptcha / Turnstile
+    'service' => 'Recaptcha', // options: Recaptcha / Hcaptcha / Turnstile / Altcha
     'sitekey' => 'YOUR_SITEKEY_HERE', // Or add to .env
     'secret' => 'YOUR_SECRET_HERE', // Or add to .env
     'forms' => ['contact', 'newsletter'],
@@ -167,7 +171,7 @@ class MyCustomShouldVerify implements CustomShouldVerify
             return false;
         }
 
-        // bypass verification based on event form submission 
+        // bypass verification based on event form submission
         if ($event instanceof \Statamic\Events\FormSubmitted) {
             // return $event->submission;
         }
