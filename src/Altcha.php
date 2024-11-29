@@ -11,6 +11,11 @@ class Altcha extends Captcha
         return request('altcha-payload');
     }
 
+    public function getResponseSelector()
+    {
+        return '#altcha-widget input[name=altcha]';
+    }
+
     public function getVerificationUrl()
     {
         return null;

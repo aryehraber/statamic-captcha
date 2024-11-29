@@ -11,6 +11,11 @@ class Recaptcha extends Captcha
         return request('g-recaptcha-response');
     }
 
+    public function getResponseSelector()
+    {
+        return '.g-recaptcha textarea[name=g-recaptcha-response]';
+    }
+
     public function getVerificationUrl()
     {
         return 'https://www.google.com/recaptcha/api/siteverify';

@@ -11,6 +11,11 @@ class Turnstile extends Captcha
         return request('cf-turnstile-response');
     }
 
+    public function getResponseSelector()
+    {
+        return '.cf-turnstile input[name=cf-turnstile-response]';
+    }
+
     public function getVerificationUrl()
     {
         return 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
