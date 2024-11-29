@@ -42,7 +42,8 @@ class Altcha extends Captcha
 
     public function verify()
     {
-        $payload = json_decode(base64_decode($this->getResponseToken()), true);
+        $responseToken = $this->getResponseToken() ?: request('captcha-response');
+        $payload = json_decode(base64_decode($responseToken), true);
 
         if ($payload) {
             $challenge = $this->createChallenge($payload['salt'], $payload['number']);
