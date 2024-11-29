@@ -33,7 +33,7 @@ abstract class Captcha
     {
         $params = [
             'secret' => $this->getSecret(),
-            'response' => $this->getResponseToken(),
+            'response' => $this->getResponseToken() ?: request('captcha-response'),
             'remoteip' => request()->ip(),
         ];
 
