@@ -11,6 +11,11 @@ class Hcaptcha extends Captcha
         return request('h-captcha-response');
     }
 
+    public function getResponseSelector()
+    {
+        return '.h-captcha textarea[name=h-captcha-response]';
+    }
+
     public function getVerificationUrl()
     {
         return 'https://hcaptcha.com/siteverify';

@@ -19,6 +19,8 @@ abstract class Captcha
 
     abstract public function getResponseToken();
 
+    abstract public function getResponseSelector();
+
     abstract public function getVerificationUrl();
 
     abstract public function getDefaultDisclaimer();
@@ -31,7 +33,7 @@ abstract class Captcha
     {
         $params = [
             'secret' => $this->getSecret(),
-            'response' => $this->getResponseToken(),
+            'response' => $this->getResponseToken() ?: request('captcha-response'),
             'remoteip' => request()->ip(),
         ];
 
