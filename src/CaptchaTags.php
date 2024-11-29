@@ -2,8 +2,8 @@
 
 namespace AryehRaber\Captcha;
 
-use Statamic\Tags\Tags;
 use Statamic\Support\Html;
+use Statamic\Tags\Tags;
 
 class CaptchaTags extends Tags
 {
@@ -34,6 +34,16 @@ class CaptchaTags extends Tags
     public function head()
     {
         return $this->captcha->renderHeadTag();
+    }
+
+    /**
+     * The {{ captcha:selector }} tag
+     *
+     * @return string
+     */
+    public function selector()
+    {
+        return $this->captcha->getResponseSelector();
     }
 
     /**

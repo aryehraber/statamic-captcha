@@ -19,6 +19,8 @@ abstract class Captcha
 
     abstract public function getResponseToken();
 
+    abstract public function getResponseSelector();
+
     abstract public function getVerificationUrl();
 
     abstract public function getDefaultDisclaimer();
