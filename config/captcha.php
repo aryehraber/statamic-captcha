@@ -13,4 +13,5 @@ return [
     'hide_badge' => false,
     'enable_api_routes' => false,
     'custom_should_verify' => null,
+    'script_url' => env('CAPTCHA_SCRIPT_URL'),
 ];

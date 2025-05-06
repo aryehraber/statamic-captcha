@@ -1,1 +1,1 @@
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="{{ config('captcha.script_url') ?? 'https://challenges.cloudflare.com/turnstile/v0/api.js' }}" async defer></script>

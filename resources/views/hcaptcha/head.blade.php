@@ -24,4 +24,4 @@
 </script>
 @endif
 
-<script src="https://hcaptcha.com/1/api.js" async defer></script>
+<script src="{{ config('captcha.script_url') ?? 'https://hcaptcha.com/1/api.js' }}" async defer></script>
