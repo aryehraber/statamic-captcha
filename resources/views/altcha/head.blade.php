@@ -1,4 +1,6 @@
-<script src="https://cdn.jsdelivr.net/npm/altcha/dist/altcha.min.js" async defer type="module"></script>
+@unless(config('captcha.altcha_disable_cdn', false))
+<script src="https://cdn.jsdelivr.net/npm/altcha/dist/altcha.min.js" defer async type="module"></script>
+@endunless
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const wrapper = document.getElementById('altcha-widget')
@@ -7,7 +9,7 @@
     wrapper.getAttributeNames().forEach((name) => {
       captcha.setAttribute(name, wrapper.getAttribute(name))
     })
-
+    
     wrapper.append(captcha)
     const form = captcha.closest('form')
     const hiddenInput = document.createElement('input')

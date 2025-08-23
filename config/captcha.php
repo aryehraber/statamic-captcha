@@ -13,4 +13,5 @@ return [
     'hide_badge' => false,
     'enable_api_routes' => false,
     'custom_should_verify' => null,
+    'altcha_disable_cdn' => false, // Set to true to disable loading Altcha script from CDN
 ];
