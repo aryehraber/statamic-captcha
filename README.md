@@ -84,7 +84,7 @@ return [
 
         <!-- Add your fields like normal -->
 
-        <!-- Add teh captcha fields if captcha is enabled for this form -->
+        <!-- Add theteh captcha fields if captcha is enabled for this form -->
         {{ captcha:is_enabled }}
             {{ captcha }}
 
