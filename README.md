@@ -84,11 +84,14 @@ return [
 
         <!-- Add your fields like normal -->
 
-        {{ captcha }}
+        <!-- Add teh captcha fields if captcha is enabled for this form -->
+        {{ captcha:is_enabled }}
+            {{ captcha }}
 
-        {{ if error:captcha }}
-          <p>{{ error:captcha }}</p>
-        {{ /if }}
+            {{ if error:captcha }}
+                <p>{{ error:captcha }}</p>
+            {{ /if }}
+        {{ /captcha:is_enabled }}
 
     {{ /form:contact }}
 </body>

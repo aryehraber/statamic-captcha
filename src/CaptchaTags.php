@@ -69,4 +69,20 @@ class CaptchaTags extends Tags
     {
         return $this->captcha->getSiteKey();
     }
+
+    /**
+     * The {{ captcha:is_enabled }} tag - wrap around content you only want to
+     * render if the captcha is enabled for the current form.
+     *
+     * @return string
+     */
+    public function isEnabled(): string
+    {
+        $form = $this->context->get('form');
+        $enabledForms = config('captcha.forms');
+        if ($enabledForms !== 'all' && !in_array($form, $enabledForms)) {
+            return '';
+        }
+        return $this->parse();
+    }
 }
