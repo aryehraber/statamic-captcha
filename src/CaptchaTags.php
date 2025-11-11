@@ -85,6 +85,6 @@ class CaptchaTags extends Tags
         $enabledForms = config('captcha.forms');
 
         return $enabledForms === 'all'
-            || !in_array($this->params->get('form'), $enabledForms);
+            || in_array($this->params->get('form'), $enabledForms);
     }
 }
