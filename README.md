@@ -114,6 +114,20 @@ Some of the Captcha services offer additional features, such as light/dark mode 
 {{ captcha data-theme="dark" data-size="compact" }}
 ```
 
+## Conditional Captcha
+
+You can now conditionally render Captcha only when it is enabled for the given form. This is especially useful when using dynamic or shared form templates.
+
+Use the `captcha:is_enabled` tag as a boolean:
+
+```
+{{ if {captcha:is_enabled form="contact"} }}
+    {{ captcha }}
+{{ /if }}
+```
+
+This checks your Captcha configuration and only outputs the Captcha fields when appropriate, it will always return true if your config is set to "all".
+
 ## Translations
 
 This package is localized to English and German.
