@@ -126,7 +126,7 @@ Use the `captcha:is_enabled` tag as a boolean:
 {{ /if }}
 ```
 
-This checks your Captcha configuration and only outputs the Captcha fields when appropriate, it will always return true if your config is set to "all".
+This checks your Captcha configuration and only outputs the Captcha fields when appropriate, it will always return true if your `forms` config is set to `all`.
 
 ## Translations
 
