@@ -69,4 +69,22 @@ class CaptchaTags extends Tags
     {
         return $this->captcha->getSiteKey();
     }
+
+    /**
+     * The {{ captcha:is_enabled form="insert_form_name_here" }} conditional tag.
+     *
+     * Use in an if statement to conditionally render based on whether captcha is enabled
+     * for a form.
+     */
+    public function isEnabled(): bool
+    {
+        if ( ! $this->params->has('form')) {
+            throw new \Exception('captcha:is_enabled requires the form parameter to be set');
+        }
+
+        $enabledForms = config('captcha.forms');
+
+        return $enabledForms === 'all'
+            || in_array($this->params->get('form'), $enabledForms);
+    }
 }
