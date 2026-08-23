@@ -6,6 +6,7 @@
         "statamic",
         "recaptcha",
         "hcaptcha",
+        "fcaptcha",
         "captcha",
         "forms"
     ],

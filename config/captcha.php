@@ -1,9 +1,10 @@
 <?php
 
 return [
-    'service' => 'Recaptcha', // options: Recaptcha / Hcaptcha / Turnstile / Altcha
+    'service' => env('CAPTCHA_SERVICE', 'Recaptcha'), // options: Recaptcha / Hcaptcha / Turnstile / Altcha / Fcaptcha
     'sitekey' => env('CAPTCHA_SITEKEY', ''),
     'secret' => env('CAPTCHA_SECRET', ''),
+    'server_url' => env('CAPTCHA_SERVER_URL', ''), // required for Fcaptcha
     'collections' => [],
     'forms' => [],
     'user_login' => false,

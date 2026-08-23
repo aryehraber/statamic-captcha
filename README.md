@@ -7,6 +7,7 @@ This addon allows you to protect your Statamic forms using any of the following 
 - [hCaptcha](https://hcaptcha.com/?r=eaeeea7cd23c)
 - [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile)
 - [ALTCHA](https://altcha.org)
+- [FCaptcha](https://github.com/WebDecoy/FCaptcha)
 
 After the initial setup, all you need to do is add the `{{ captcha }}` tag inside your forms, easy peasy!
 
@@ -30,9 +31,10 @@ Alternately, you can manually setup the config file by creating `captcha.php` in
 <?php
 
 return [
-    'service' => 'Recaptcha', // options: Recaptcha / Hcaptcha / Turnstile / Altcha
+    'service' => env('CAPTCHA_SERVICE', 'Recaptcha'), // options: Recaptcha / Hcaptcha / Turnstile / Altcha / Fcaptcha
     'sitekey' => env('CAPTCHA_SITEKEY', ''),
     'secret' => env('CAPTCHA_SECRET', ''),
+    'server_url' => env('CAPTCHA_SERVER_URL', ''), // required for Fcaptcha
     'forms' => [],
     'user_login' => false,
     'user_registration' => false,
@@ -44,18 +46,27 @@ return [
 ];
 ```
 
-Once the config file is in place, make sure to add your `sitekey` & `secret` from [Recaptcha's Console](https://www.google.com/recaptcha/admin), [hCaptcha's Console](https://dashboard.hcaptcha.com/sites), [Cloudflare's Dashboard](https://dash.cloudflare.com) or [Altcha's Docs](https://altcha.org/docs/api/api_keys/) and add the handles of the Statamic Forms you'd like to protect:
+Once the config file is in place, make sure to add your `sitekey` & `secret` from [Recaptcha's Console](https://www.google.com/recaptcha/admin), [hCaptcha's Console](https://dashboard.hcaptcha.com/sites), [Cloudflare's Dashboard](https://dash.cloudflare.com), [Altcha's Docs](https://altcha.org/docs/api/api_keys/) or your [FCaptcha server](https://github.com/WebDecoy/FCaptcha), and add the handles of the Statamic Forms you'd like to protect:
 
 ```php
 <?php
 
 return [
-    'service' => 'Recaptcha', // options: Recaptcha / Hcaptcha / Turnstile / Altcha
+    'service' => env('CAPTCHA_SERVICE', 'Recaptcha'), // options: Recaptcha / Hcaptcha / Turnstile / Altcha / Fcaptcha
     'sitekey' => 'YOUR_SITEKEY_HERE', // Or add to .env
     'secret' => 'YOUR_SECRET_HERE', // Or add to .env
     'forms' => ['contact', 'newsletter'],
     // ...
 ];
+```
+
+When using FCaptcha, also point the addon to your self-hosted FCaptcha server:
+
+```dotenv
+CAPTCHA_SERVICE=Fcaptcha
+CAPTCHA_SITEKEY=your-site-key
+CAPTCHA_SECRET=your-verify-secret
+CAPTCHA_SERVER_URL=https://captcha.example.com
 ```
 
 If you would like Captcha to verify ALL forms without having to specify each one in the `forms` config array, you may use the `all` option instead.
