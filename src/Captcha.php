@@ -31,19 +31,29 @@ abstract class Captcha
 
     public function verify()
     {
-        $params = [
-            'secret' => $this->getSecret(),
-            'response' => $this->getResponseToken() ?: request('captcha-response'),
-            'remoteip' => request()->ip(),
-        ];
-
-        $response = $this->client->post($this->getVerificationUrl(), ['form_params' => $params]);
+        $response = $this->client->post($this->getVerificationUrl(), [
+            'form_params' => $this->getVerificationParams(),
+        ]);
 
         if ($response->getStatusCode() == 200) {
             $this->data = collect(json_decode($response->getBody(), true));
         }
 
         return $this;
+    }
+
+    /**
+     * The parameters sent to the Captcha service for verification
+     *
+     * @return array
+     */
+    protected function getVerificationParams()
+    {
+        return [
+            'secret' => $this->getSecret(),
+            'response' => $this->getResponseToken() ?: request('captcha-response'),
+            'remoteip' => request()->ip(),
+        ];
     }
 
     /**
