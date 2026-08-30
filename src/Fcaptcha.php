@@ -21,6 +21,24 @@ class Fcaptcha extends Captcha
         return $this->getServerUrl().'/turnstile/v0/siteverify';
     }
 
+    protected function getVerificationParams()
+    {
+        $params = parent::getVerificationParams();
+
+        // FCaptcha binds a token to the IP address it saw when the widget was
+        // solved, and rejects the token outright when 'remoteip' disagrees. The
+        // two IPs are only guaranteed to match when the site and the FCaptcha
+        // server sit behind the same proxy setup: request()->ip() is the
+        // proxy's address until Laravel's trusted proxies are configured, and a
+        // dual-stack visitor can reach one host over IPv6 and the other over
+        // IPv4. Assert the IP only when the site opts in.
+        if (! config('captcha.verify_ip')) {
+            unset($params['remoteip']);
+        }
+
+        return $params;
+    }
+
     public function getDefaultDisclaimer()
     {
         return '[Protected by FCaptcha](https://github.com/WebDecoy/FCaptcha).';

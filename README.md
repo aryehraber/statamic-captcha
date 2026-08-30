@@ -35,6 +35,7 @@ return [
     'sitekey' => env('CAPTCHA_SITEKEY', ''),
     'secret' => env('CAPTCHA_SECRET', ''),
     'server_url' => env('CAPTCHA_SERVER_URL', ''), // required for Fcaptcha
+    'verify_ip' => env('CAPTCHA_VERIFY_IP', false), // Fcaptcha only, see below
     'forms' => [],
     'user_login' => false,
     'user_registration' => false,
@@ -68,6 +69,8 @@ CAPTCHA_SITEKEY=your-site-key
 CAPTCHA_SECRET=your-verify-secret
 CAPTCHA_SERVER_URL=https://captcha.example.com
 ```
+
+FCaptcha binds each token to the IP address it saw when the widget was solved, and rejects a token whose `remoteip` disagrees. Because that only holds when your site reports the exact same address — which needs Laravel's trusted proxies configured, and can still differ for a dual-stack visitor who reaches one host over IPv6 and the other over IPv4 — the addon does not assert an IP by default. Set `CAPTCHA_VERIFY_IP=true` to turn the check on once you've confirmed both ends agree.
 
 If you would like Captcha to verify ALL forms without having to specify each one in the `forms` config array, you may use the `all` option instead.
 
